@@ -1,0 +1,93 @@
+blueprint:
+  name: Hue Dimmer Switch (Z2M)
+  description: 'Link actions to buttons on the hue dimmer switch (click or hold).'
+  domain: automation
+  input:
+    dimmer:
+      name: Hue Dimmer switch
+      description: Hue Dimmer switch to use (Zigbee2mqtt Action Sensor)
+      selector:
+        entity:
+          domain: sensor
+    on_click:
+      name: On click
+      description: Action to run on click of On button
+      default: []
+      selector:
+        action: {}
+    up_click:
+      name: Up click
+      description: Action to run on click of Dim Up button
+      default: []
+      selector:
+        action: {}
+    down_click:
+      name: Down click
+      description: Action to run on click of Dim Down button
+      default: []
+      selector:
+        action: {}
+    off_click:
+      name: Off click
+      description: Action to run on click of Off button
+      default: []
+      selector:
+        action: {}
+    on_hold:
+      name: On hold
+      description: Action to run on long press of On button
+      default: []
+      selector:
+        action: {}
+    up_hold:
+      name: Up hold
+      description: Action to run on long press of Dim Up button
+      default: []
+      selector:
+        action: {}
+    down_hold:
+      name: Down hold
+      description: Action to run on long press of Dim Down button
+      default: []
+      selector:
+        action: {}
+    off_hold:
+      name: Off hold
+      description: Action to run on long press of Off button
+      default: []
+      selector:
+        action: {}
+mode: restart
+max_exceeded: silent
+trigger:
+- platform: state
+  entity_id: !input 'dimmer'
+  attribute: action
+action:
+- variables:
+    command: '{{ trigger.to_state.state }}'
+- choose:
+  - conditions:
+    - "{{ command is match('on[-_]press') }}"
+    sequence: !input on_click
+  - conditions:
+    - "{{ command is match('up[-_]press') }}"
+    sequence: !input up_click
+  - conditions:
+    - "{{ command is match('down[-_]press') }}"
+    sequence: !input down_click
+  - conditions:
+    - "{{ command is match('off[-_]press') }}"
+    sequence: !input off_click
+  - conditions:
+    - "{{ command is match('on[-_]hold') }}"
+    sequence: !input on_hold
+  - conditions:
+    - "{{ command is match('up[-_]hold') }}"
+    sequence: !input up_hold
+  - conditions:
+    - "{{ command is match('down[-_]hold') }}"
+    sequence: !input down_hold
+  - conditions:
+    - "{{ command is match('off[-_]hold') }}"
+    sequence: !input off_hold
