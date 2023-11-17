@@ -68,26 +68,26 @@ action:
     command: '{{ trigger.to_state.state }}'
 - choose:
   - conditions:
-    - "{{ command is match('on[-_]press') }}"
+    - "{{ command is match('on[-_]press$') }}"
     sequence: !input on_click
   - conditions:
-    - "{{ command is match('up[-_]press') }}"
+    - "{{ command is match('up[-_]press$') }}"
     sequence: !input up_click
   - conditions:
-    - "{{ command is match('down[-_]press') }}"
+    - "{{ command is match('down[-_]press$') }}"
     sequence: !input down_click
   - conditions:
-    - "{{ command is match('off[-_]press') }}"
+    - "{{ command is match('off[-_]press$') }}"
     sequence: !input off_click
   - conditions:
-    - "{{ command is match('on[-_]hold') }}"
+    - "{{ command is match('on[-_]hold$') }}"
     sequence: !input on_hold
   - conditions:
-    - "{{ command is match('up[-_]hold') }}"
+    - "{{ command is match('up[-_]hold$') }}"
     sequence: !input up_hold
   - conditions:
-    - "{{ command is match('down[-_]hold') }}"
+    - "{{ command is match('down[-_]hold$') }}"
     sequence: !input down_hold
   - conditions:
-    - "{{ command is match('off[-_]hold') }}"
+    - "{{ command is match('off[-_]hold$') }}"
     sequence: !input off_hold
